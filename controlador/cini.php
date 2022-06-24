@@ -1,5 +1,5 @@
 <?php
-function erroraute(){
+function errorauth(){
 	$error = isset($_GET['error']) ? $_GET['error']:NULL;
 	if($error=="ok"){
 		$txt = '<div>';

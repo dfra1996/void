@@ -35,7 +35,7 @@ class mmen{
 		$resultado = null;
 		$modelo = new conexion();
 		$conexion = $modelo->get_conexion();
-		$sql = "SELECT pefid, pefnom, pagprin FROM perfil WHERE pefid=:pefid";
+		$sql = "SELECT pefid, pefid , pagprin FROM perfil WHERE pefid=:pefid";
 		$result = $conexion->prepare($sql);
 		$result->bindParam(":pefid",$pefid);
 		$result->execute();
@@ -46,15 +46,15 @@ class mmen{
 		return $resultado;
 	}
 
-	public function selus($idusu){
+	public function selus($iduser){
 		$resultado = null;
 		$modelo = new conexion();
 		$conexion = $modelo->get_conexion();
-		$sql = "SELECT u.idusu, u.nomusu, u.apeusu, p.pefnom, u.dirusu, u.telusu, d.nomubi, u.emausu, u.imgus, v.nomval FROM usuario AS u INNER JOIN perfil AS p ON u.pefid=p.pefid INNER JOIN ubicacion AS d ON u.codubi=d.codubi INNER JOIN valor as v ON u.sexo=v.codval WHERE u.idusu=:idusu";
+		$sql = "SELECT u.iduser, u.name, u.lastname, p.pefid , u.address, u.phone, d.nomubi, u.email , u.imgus FROM usuario AS u INNER JOIN perfil AS p ON u.idprofile =p.pefid INNER JOIN ubicacion AS d ON u.codubi=d.codubi WHERE u.iduser=:iduser";
 		//echo "<br><br><br><br>".$sql."<br><br>";
 		$result = $conexion->prepare($sql);
 		//echo $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$result->bindParam(":idusu",$idusu);
+		$result->bindParam(":iduser",$iduser);
 		$result->execute();
 
 		while($f=$result->fetch()){
