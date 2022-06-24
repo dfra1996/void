@@ -8,5 +8,4 @@ function erroraute(){
 		echo $txt;
 	}
 }
-
 ?>
