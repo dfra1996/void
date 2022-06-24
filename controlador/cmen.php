@@ -6,10 +6,10 @@ function mosmen($pagmen, $pefid){
 	$mmen = new mmen();
 	$result = $mmen->selmen($pagmen, $pefid);
 	$pm = strtolower($pagmen);
-	$idusu = isset($_SESSION["idusu"]) ? $_SESSION["idusu"]:NULL;
+	$iduser = isset($_SESSION["iduser"]) ? $_SESSION["iduser"]:NULL;
 
 	// Llamado Datos Usuario
-	$dt = $mmen->selus($idusu);
+	$dt = $mmen->selus($iduser);
 
 	// Validar que trae la variable
 	//var_dump ($dt[0]['imgus']);
@@ -53,7 +53,7 @@ function mosmen($pagmen, $pefid){
 					$txt .= '</nav>';
 				$txt .= '</li>';
 				$txt .= '<li style="padding-left: 17px;padding-top: 6px;">';
-					$txt .= '<strong><big>Bienvenido, '.$_SESSION["nomusu"].'</big></strong>';
+					$txt .= '<strong><big>Bienvenido, '.$_SESSION["name"].'</big></strong>';
 				$txt .= '</li>';
 				$txt .= '<li class="smen">';
 					$txt .= '<a href="'.$pm.'.php?pg=1070">';
@@ -71,7 +71,7 @@ function mosmen($pagmen, $pefid){
 		$datpgpf = $mmen->selpgpf($pefid);
 
 		if($pefid)
-			if(!$pg) $pg = $datpgpf[0]['pagprin'];
+			if(!$pg) $pg = 	$datpgpf[0]['pagprin'];
 		else
 			if(!$pg) $pg = 5555;
 

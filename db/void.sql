@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-06-2021 a las 17:47:52
--- Versión del servidor: 5.7.31
--- Versión de PHP: 7.3.21
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-06-2022 a las 23:29:36
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,19 +18,17 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `appsecurity`
+-- Base de datos: `void`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-DROP PROCEDURE IF EXISTS `comdel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `comdel` (`idco` BIGINT(11))  BEGIN
 		DELETE FROM comentario WHERE idcom=idco;
 	END$$
 
-DROP PROCEDURE IF EXISTS `comiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `comiu` (`idco` BIGINT(11), `idus` BIGINT(11), `idin` BIGINT(11), `desco` TEXT, `fecco` DATETIME)  BEGIN
 		IF NOT EXISTS(SELECT idcom FROM comentario WHERE idcom=idco) THEN
 			INSERT INTO comentario(idcom, idusu, idinc, descom, feccom) 
@@ -42,13 +40,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `comiu` (`idco` BIGINT(11), `idus` B
 		END IF;
 	END$$
 
-DROP PROCEDURE IF EXISTS `domdel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `domdel` (`iddo` BIGINT(11))  BEGIN
 		DELETE FROM dominio 
 		WHERE iddom=iddo;
 	END$$
 
-DROP PROCEDURE IF EXISTS `domiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `domiu` (IN `iddo` BIGINT(11), IN `nomdo` VARCHAR(70), IN `pardo` VARCHAR(50))  BEGIN
 		IF NOT EXISTS (SELECT iddom FROM dominio WHERE iddom=iddo) THEN
 			INSERT INTO dominio(iddom,nomdom, pardom) 
@@ -60,12 +56,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `domiu` (IN `iddo` BIGINT(11), IN `n
 		END IF;
 	END$$
 
-DROP PROCEDURE IF EXISTS `incdel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `incdel` (IN `idin` BIGINT(11))  BEGIN
         DELETE FROM incidente WHERE idinc=idin;
         END$$
 
-DROP PROCEDURE IF EXISTS `inciu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `inciu` (`idin` BIGINT(11), `idus` BIGINT(11), `feccr` DATETIME, `codub` BIGINT(11), `textin` TEXT, `imgin` VARCHAR(100), `tip` INT(5), `fechecre` DATETIME, `estad` INT(5), `la` FLOAT(10,6), `ln` FLOAT(10,6))  BEGIN
         IF NOT EXISTS(SELECT idinc FROM incidente WHERE idinc=idin)
         THEN
@@ -78,12 +72,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `inciu` (`idin` BIGINT(11), `idus` B
         END IF;
         END$$
 
-DROP PROCEDURE IF EXISTS `pagdel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pagdel` (`pagi` BIGINT(11))  BEGIN
 		DELETE FROM pagina WHERE pagid=pagi;
 	END$$
 
-DROP PROCEDURE IF EXISTS `pagiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pagiu` (IN `pagi` BIGINT(11), IN `pagno` VARCHAR(40), IN `pagar` VARCHAR(100), IN `pagmo` INT(3), IN `pagor` INT(3), IN `pagme` VARCHAR(30), IN `icon` VARCHAR(255))  BEGIN
 		IF NOT EXISTS(SELECT pagid FROM pagina WHERE pagid=pagi) THEN
 			INSERT INTO pagina(pagid,pagnom,pagarc,pagmos,pagord,pagmen,icono) VALUES
@@ -97,13 +89,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pagiu` (IN `pagi` BIGINT(11), IN `p
 	
 	END$$
 
-DROP PROCEDURE IF EXISTS `pefdel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pefdel` (`pefi` BIGINT(11))  BEGIN
 		DELETE FROM perfil 
 		WHERE pefid=pefi;
 	END$$
 
-DROP PROCEDURE IF EXISTS `pefiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pefiu` (IN `pefi` BIGINT(11), IN `pefno` VARCHAR(50), IN `pagpri` BIGINT(11))  BEGIN
 		IF NOT EXISTS (SELECT pefid FROM perfil WHERE pefid=pefi) THEN
 			INSERT INTO perfil(pefid, pefnom, pagprin) VALUES (pefi, pefno, pagpri);
@@ -112,12 +102,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pefiu` (IN `pefi` BIGINT(11), IN `p
 		END IF;
 	END$$
 
-DROP PROCEDURE IF EXISTS `ubidel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ubidel` (`codub` BIGINT(11))  BEGIN
 		DELETE FROM ubicacion WHERE codubi=codub;
 	END$$
 
-DROP PROCEDURE IF EXISTS `ubiiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ubiiu` (`codub` BIGINT(11), `nomub` VARCHAR(30), `depub` BIGINT(11))  BEGIN
 		IF NOT EXISTS(SELECT codubi FROM ubicacion WHERE codubi=codub) THEN
 			INSERT INTO ubicacion(codubi, nomubi, depubi) 
@@ -129,12 +117,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ubiiu` (`codub` BIGINT(11), `nomub`
 		END IF;
 	END$$
 
-DROP PROCEDURE IF EXISTS `usudel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `usudel` (`idus` BIGINT(11))  BEGIN
 		DELETE FROM usuario WHERE idusu=idus;
 	END$$
 
-DROP PROCEDURE IF EXISTS `usuiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `usuiu` (IN `idus` BIGINT(11), IN `nomus` VARCHAR(50), IN `apeus` VARCHAR(50), IN `pefi` BIGINT(11), IN `dirus` VARCHAR(100), IN `telus` VARCHAR(10), IN `codub` BIGINT(11), IN `emaus` VARCHAR(100), IN `pasus` VARCHAR(100), IN `sex` INT(5), IN `imgu` VARCHAR(120), IN `actus` TINYINT(1))  BEGIN
 		IF NOT EXISTS(SELECT idusu FROM usuario WHERE idusu=idus) THEN
 			INSERT INTO usuario(idusu, nomusu, apeusu, pefid, dirusu, telusu, codubi, emausu, pasusu, sexo, imgus, actusu) 
@@ -146,12 +132,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `usuiu` (IN `idus` BIGINT(11), IN `n
 		END IF;
 	END$$
 
-DROP PROCEDURE IF EXISTS `valdel`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `valdel` (`codva` INT(5))  BEGIN
 		DELETE FROM valor WHERE codval=codva;
 	END$$
 
-DROP PROCEDURE IF EXISTS `valiu`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `valiu` (IN `codva` INT(5), IN `iddo` BIGINT(11), IN `nomva` VARCHAR(60), IN `parva` VARCHAR(100))  BEGIN
               IF NOT EXISTS(SELECT codval FROM valor WHERE codval=codva) THEN
                   INSERT INTO valor(codval,iddom, nomval, parval) VALUES
@@ -168,83 +152,14 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `auditoria`
---
-
-DROP TABLE IF EXISTS `auditoria`;
-CREATE TABLE IF NOT EXISTS `auditoria` (
-  `idusu` bigint(11) NOT NULL,
-  `nomtbl` varchar(50) NOT NULL,
-  `datos_tbl` varchar(1000) NOT NULL,
-  `modif` datetime NOT NULL,
-  `proceso` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `comentario`
---
-
-DROP TABLE IF EXISTS `comentario`;
-CREATE TABLE IF NOT EXISTS `comentario` (
-  `idcom` bigint(11) NOT NULL AUTO_INCREMENT,
-  `idusu` bigint(11) NOT NULL,
-  `idinc` bigint(11) DEFAULT NULL,
-  `descom` text NOT NULL,
-  `feccom` datetime NOT NULL,
-  PRIMARY KEY (`idcom`),
-  KEY `idusu` (`idusu`),
-  KEY `idinc` (`idinc`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `comentario`
---
-
-INSERT INTO `comentario` (`idcom`, `idusu`, `idinc`, `descom`, `feccom`) VALUES
-(1, 4, 1, 'Comentario de prueba Manual de usuario #1 ', '2021-06-15 12:30:22'),
-(2, 4, 1, 'Comentario de prueba Manual de usuario #2 Otra hora', '2021-06-15 12:30:57'),
-(3, 20, 1, 'ss', '2021-06-17 10:33:31'),
-(4, 21, 5, 'A si, ? ccom fue', '2021-06-17 10:34:10');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `configuracion`
---
-
-DROP TABLE IF EXISTS `configuracion`;
-CREATE TABLE IF NOT EXISTS `configuracion` (
-  `idconf` bigint(11) NOT NULL AUTO_INCREMENT,
-  `nit` varchar(13) DEFAULT NULL,
-  `nomemp` varchar(200) DEFAULT NULL,
-  `dircon` varchar(150) NOT NULL,
-  `mosdir` int(1) NOT NULL,
-  `telcon` varchar(20) NOT NULL,
-  `mostel` int(1) NOT NULL,
-  `celcon` varchar(20) NOT NULL,
-  `moscel` int(1) NOT NULL,
-  `emacon` varchar(100) NOT NULL,
-  `mosema` int(1) NOT NULL,
-  `logocon` varchar(100) NOT NULL,
-  `consen` text NOT NULL,
-  PRIMARY KEY (`idconf`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `dominio`
 --
 
-DROP TABLE IF EXISTS `dominio`;
-CREATE TABLE IF NOT EXISTS `dominio` (
-  `iddom` bigint(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `dominio` (
+  `iddom` bigint(11) NOT NULL,
   `nomdom` varchar(70) DEFAULT NULL,
-  `pardom` varchar(50) NOT NULL,
-  PRIMARY KEY (`iddom`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `pardom` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `dominio`
@@ -258,66 +173,17 @@ INSERT INTO `dominio` (`iddom`, `nomdom`, `pardom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `incidente`
---
-
-DROP TABLE IF EXISTS `incidente`;
-CREATE TABLE IF NOT EXISTS `incidente` (
-  `idinc` bigint(11) NOT NULL AUTO_INCREMENT,
-  `idusu` bigint(11) NOT NULL,
-  `feccre` datetime NOT NULL,
-  `codubi` bigint(11) NOT NULL,
-  `textinc` text NOT NULL,
-  `imginc` varchar(100) DEFAULT NULL,
-  `tipo` int(5) NOT NULL,
-  `fechecrep` datetime NOT NULL,
-  `estado` int(5) NOT NULL,
-  `lat` float(10,6) NOT NULL,
-  `lng` float(10,6) NOT NULL,
-  PRIMARY KEY (`idinc`),
-  KEY `idusu` (`idusu`),
-  KEY `codubi` (`codubi`),
-  KEY `tipo` (`tipo`),
-  KEY `estado` (`estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `incidente`
---
-
-INSERT INTO `incidente` (`idinc`, `idusu`, `feccre`, `codubi`, `textinc`, `imginc`, `tipo`, `fechecrep`, `estado`, `lat`, `lng`) VALUES
-(1, 20, '2021-06-07 09:37:46', 99, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged', 'fotinc/99_fotinc.jpg', 8, '2021-06-11 09:37:00', 5, 4.858800, -74.055298),
-(2, 20, '2021-06-08 16:05:40', 99, 'fdfdfdfd', 'fotinc/99_fotinc.png', 8, '2021-06-01 07:05:00', 4, 4.858800, -74.055298),
-(3, 4, '2021-06-08 16:37:46', 99, 'hghghjg', '', 9, '2021-06-10 04:40:00', 5, 4.858800, -74.055298),
-(4, 4, '2021-06-08 17:04:35', 54405, 'fhgjfghjgfh', '', 8, '2021-06-08 21:04:00', 6, 4.858800, -74.055298),
-(5, 4, '2021-03-09 18:22:59', 5004, 'Que peligro casi me roban !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.853255, -74.060104),
-(6, 4, '2021-03-09 18:22:59', 5004, 'Que peligro casi me roban !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.856669, -74.062271),
-(7, 4, '2021-03-09 18:22:59', 5004, 'Que peligro casi me roban !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.883446, -74.045418),
-(8, 4, '2021-03-09 18:22:59', 5004, 'Que peligro casi me roban !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.890568, -74.034111),
-(9, 4, '2021-03-09 18:22:59', 5004, 'Que peligro casi me roban !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.890568, -74.034111),
-(10, 4, '2021-03-09 18:22:59', 5004, 'Muy peligroso este sitio !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.878297, -74.070816),
-(11, 4, '2021-03-09 18:22:59', 5004, 'Muy peligroso este sitio !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.876667, -74.062080),
-(12, 4, '2021-03-09 18:22:59', 5004, 'Muy peligroso este sitio !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.868381, -74.059090),
-(13, 4, '2021-03-09 18:22:59', 5004, 'Muy peligroso este sitio !!!!!', NULL, 7, '2021-06-10 12:19:31', 4, 4.859491, -74.066772),
-(14, 20, '2021-03-09 18:22:59', 99, 'Muy peligroso este sitio !!!!!', '', 7, '2021-06-10 12:19:00', 4, 4.858800, -74.055298),
-(15, 17, '2021-06-01 10:54:02', 18029, 'Prueba local zipa', 'CCCC', 7, '2021-06-23 10:54:02', 5, 5.027032, -73.989990);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `pagina`
 --
 
-DROP TABLE IF EXISTS `pagina`;
-CREATE TABLE IF NOT EXISTS `pagina` (
+CREATE TABLE `pagina` (
   `pagid` bigint(11) NOT NULL,
   `pagnom` varchar(40) DEFAULT NULL,
   `pagarc` varchar(100) DEFAULT NULL,
   `pagmos` int(3) DEFAULT NULL,
   `pagord` int(3) NOT NULL,
   `pagmen` varchar(30) NOT NULL,
-  `icono` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`pagid`)
+  `icono` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -325,23 +191,22 @@ CREATE TABLE IF NOT EXISTS `pagina` (
 --
 
 INSERT INTO `pagina` (`pagid`, `pagnom`, `pagarc`, `pagmos`, `pagord`, `pagmen`, `icono`) VALUES
-(302, 'PÃ¡gina', 'vista/vpag.php', 1, 14, 'Home', 'fas fa-copy ico'),
+(302, 'PÃ¡gina', 'view/vpag.php', 1, 14, 'Home', 'fas fa-copy ico'),
 (303, 'Perfil', 'vista/vpef.php', 1, 13, 'Home', 'fas fa-users ico'),
 (304, 'ConfiguraciÃ³n', 'vista/vcon.php', 2, 11, 'Home', 'fas fa-cog ico'),
 (305, 'Usuarios', 'vista/vusu.php', 1, 12, 'Home', 'fas fa-user ico'),
 (306, 'Comentarios', 'vista/vcom.php', 1, 3, 'Home', 'fas fa-comments ico'),
 (307, 'Incidentes', 'vista/vinc.php', 1, 2, 'Home', 'fas fa-mail-bulk ico'),
 (308, 'Valor', 'vista/vval.php', 1, 16, 'Home', 'fas fa-thermometer-empty ico'),
-(309, 'Dominio', 'vista/vdom.php', 1, 15, 'Home', 'fas fa-thermometer-full ico'),
+(309, 'Dominio', 'view/vdom.php', 1, 15, 'Home', 'fas fa-thermometer-full ico'),
 (310, 'UbicaciÃ³n', 'vista/vubi.php', 1, 17, 'Home', 'fas fa-map-marker-alt ico'),
-(313, 'Mapa', 'cmap.php', 1, 5, 'Home', 'fas fa-map-marked-alt ico'),
 (314, 'Datos Personales', 'vista/vdusu.php', 1, 4, 'Home', 'fas fa-user-cog ico'),
 (315, 'Estadisticas', 'vista/vest.php', 1, 7, 'Home', 'fas fa-poll ico'),
 (316, 'Graficos', 'vista/vgraf.php', 1, 6, 'Home', 'fas fa-chart-pie ico'),
 (1067, 'INCIDENTES', '#Espacio', 1, 1, 'Home', 'far fa-poo ico'),
 (1068, 'CONFIGURACIÃ“N', '#Espacio', 1, 10, 'Home', 'far fa-poo ico'),
 (1069, NULL, '#Espacio', 1, 20, 'Home', 'far fa-poo ico'),
-(1070, 'SALIR', 'vista/vsal.php', 1, 30, 'Home', 'fas fa-sign-out-alt ico');
+(1070, 'SALIR', 'view/vsal.php', 1, 30, 'Home', 'fas fa-sign-out-alt ico');
 
 -- --------------------------------------------------------
 
@@ -349,12 +214,9 @@ INSERT INTO `pagina` (`pagid`, `pagnom`, `pagarc`, `pagmos`, `pagord`, `pagmen`,
 -- Estructura de tabla para la tabla `pagper`
 --
 
-DROP TABLE IF EXISTS `pagper`;
-CREATE TABLE IF NOT EXISTS `pagper` (
+CREATE TABLE `pagper` (
   `pagid` bigint(11) NOT NULL,
-  `pefid` bigint(11) DEFAULT NULL,
-  KEY `fk_pagpxpag` (`pagid`),
-  KEY `fk_pagpxper` (`pefid`)
+  `pefid` bigint(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -366,7 +228,6 @@ INSERT INTO `pagper` (`pagid`, `pefid`) VALUES
 (307, 3),
 (306, 3),
 (314, 3),
-(313, 3),
 (1069, 3),
 (1070, 3),
 (316, 2),
@@ -383,7 +244,6 @@ INSERT INTO `pagper` (`pagid`, `pefid`) VALUES
 (307, 1),
 (306, 1),
 (314, 1),
-(313, 1),
 (316, 1),
 (315, 1),
 (1068, 1),
@@ -402,14 +262,11 @@ INSERT INTO `pagper` (`pagid`, `pefid`) VALUES
 -- Estructura de tabla para la tabla `perfil`
 --
 
-DROP TABLE IF EXISTS `perfil`;
-CREATE TABLE IF NOT EXISTS `perfil` (
-  `pefid` bigint(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `perfil` (
+  `pefid` bigint(11) NOT NULL,
   `pefnom` varchar(50) DEFAULT NULL,
-  `pagprin` bigint(11) NOT NULL,
-  PRIMARY KEY (`pefid`),
-  KEY `pagprin` (`pagprin`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `pagprin` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `perfil`
@@ -426,12 +283,10 @@ INSERT INTO `perfil` (`pefid`, `pefnom`, `pagprin`) VALUES
 -- Estructura de tabla para la tabla `ubicacion`
 --
 
-DROP TABLE IF EXISTS `ubicacion`;
-CREATE TABLE IF NOT EXISTS `ubicacion` (
+CREATE TABLE `ubicacion` (
   `codubi` bigint(11) NOT NULL,
   `nomubi` varchar(30) NOT NULL,
-  `depubi` bigint(11) DEFAULT NULL,
-  PRIMARY KEY (`codubi`)
+  `depubi` bigint(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1606,44 +1461,30 @@ INSERT INTO `ubicacion` (`codubi`, `nomubi`, `depubi`) VALUES
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `idusu` bigint(11) NOT NULL AUTO_INCREMENT,
-  `nomusu` varchar(50) NOT NULL,
-  `apeusu` varchar(50) NOT NULL,
-  `pefid` bigint(11) NOT NULL,
-  `dirusu` varchar(100) NOT NULL,
-  `telusu` varchar(10) DEFAULT NULL,
+CREATE TABLE `usuario` (
+  `iduser` bigint(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `idprofile` bigint(11) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `phone` varchar(10) DEFAULT NULL,
   `codubi` bigint(11) NOT NULL,
-  `emausu` varchar(100) NOT NULL,
-  `pasusu` varchar(100) NOT NULL,
-  `sexo` int(5) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `imgus` varchar(120) DEFAULT NULL,
-  `actusu` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `fecsolusu` datetime DEFAULT NULL,
-  `clausu` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`idusu`),
-  UNIQUE KEY `emausu` (`emausu`),
-  UNIQUE KEY `emausu_2` (`emausu`),
-  KEY `fpef` (`pefid`),
-  KEY `fubi` (`codubi`),
-  KEY `sexo` (`sexo`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+  `clausu` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idusu`, `nomusu`, `apeusu`, `pefid`, `dirusu`, `telusu`, `codubi`, `emausu`, `pasusu`, `sexo`, `imgus`, `actusu`, `fecsolusu`, `clausu`) VALUES
-(2, 'Usuario', 'Normal', 3, '', NULL, 11001, 'usuario@appsecurity.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 3, 'image/normal', 1, NULL, NULL),
-(3, 'Ente', 'Seguridad', 2, '', NULL, 11001, 'ente@appsecurity.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 3, 'image/ente', 1, NULL, NULL),
-(4, 'Duvan', 'Robayo', 1, '1d3', '311825', 25175, 'xx.duvanxx@hotmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 1, 'image/duvan', 1, '2021-06-17 12:59:26', '0f92fb6b60b12d7caacc00d92fa7c189f24ccf6f'),
-(17, 'David', 'Velasquez', 1, 'TV.22 N°8-58', '3142649227', 25899, 'dovelasquez03@misena.edu.co', '10470c3b4b1fed12c3baac014be15fac67c6e815', 1, 'image/indefinido', 1, NULL, NULL),
-(19, '67tyytghjty', 'Robayo', 3, 'tyjtyjt', '3323232222', 63548, 'gegger@greg.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 2, 'image/indefinido', 1, NULL, NULL),
-(20, 'Esperanza', 'Gomez', 3, '69', '3323232222', 54405, 'esperanza69@gmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 2, 'image/hope', 1, NULL, NULL),
-(21, 'Susy', 'Gala', 3, 'edfw23-g434tgg####444', '3111222111', 50330, 's@gmail.com', 'a9522e54c81a2b6058365dac919d1fa18dd54d9d', 2, 'image/indefinido', 1, NULL, NULL),
-(22, 'Luis', 'Gomez', 3, 'tyjtyjt-2', '312211221', 54377, '313@hotmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 1, 'image/indefinido', 1, NULL, NULL),
-(24, 'R', 'Robayo', 3, 'tyjtyjt', '3323232222', 54385, 'r@gmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 2, NULL, 1, NULL, NULL);
+INSERT INTO `usuario` (`iduser`, `name`, `lastname`, `idprofile`, `address`, `phone`, `codubi`, `email`, `password`, `imgus`, `status`, `fecsolusu`, `clausu`) VALUES
+(4, 'Duvan', 'Robayo', 1, '1d3', '311825', 25175, 'xx.duvanxx@hotmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'image/duvan', 1, '2021-06-17 12:59:26', '0f92fb6b60b12d7caacc00d92fa7c189f24ccf6f'),
+(17, 'David', 'Velasquez', 1, 'TV.22 N°8-58', '3142649227', 25899, 'dovelasquez03@misena.edu.co', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'image/indefinido', 1, NULL, NULL),
+(20, 'Esperanza', 'Gomez', 3, '69', '3323232222', 54405, 'esperanza69@gmail.com', '10470c3b4b1fed12c3baac014be15fac67c6e815', 'image/hope', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1651,15 +1492,12 @@ INSERT INTO `usuario` (`idusu`, `nomusu`, `apeusu`, `pefid`, `dirusu`, `telusu`,
 -- Estructura de tabla para la tabla `valor`
 --
 
-DROP TABLE IF EXISTS `valor`;
-CREATE TABLE IF NOT EXISTS `valor` (
-  `codval` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `valor` (
+  `codval` int(5) NOT NULL,
   `iddom` bigint(11) DEFAULT NULL,
   `nomval` varchar(60) DEFAULT NULL,
-  `parval` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`codval`),
-  KEY `fk_domxval` (`iddom`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `parval` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `valor`
@@ -1677,24 +1515,89 @@ INSERT INTO `valor` (`codval`, `iddom`, `nomval`, `parval`) VALUES
 (9, 3, 'Violacion', NULL);
 
 --
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `dominio`
+--
+ALTER TABLE `dominio`
+  ADD PRIMARY KEY (`iddom`);
+
+--
+-- Indices de la tabla `pagina`
+--
+ALTER TABLE `pagina`
+  ADD PRIMARY KEY (`pagid`);
+
+--
+-- Indices de la tabla `pagper`
+--
+ALTER TABLE `pagper`
+  ADD KEY `fk_pagpxpag` (`pagid`),
+  ADD KEY `fk_pagpxper` (`pefid`);
+
+--
+-- Indices de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`pefid`),
+  ADD KEY `pagprin` (`pagprin`);
+
+--
+-- Indices de la tabla `ubicacion`
+--
+ALTER TABLE `ubicacion`
+  ADD PRIMARY KEY (`codubi`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`iduser`),
+  ADD UNIQUE KEY `emausu` (`email`),
+  ADD UNIQUE KEY `emausu_2` (`email`),
+  ADD KEY `fpef` (`idprofile`),
+  ADD KEY `fubi` (`codubi`);
+
+--
+-- Indices de la tabla `valor`
+--
+ALTER TABLE `valor`
+  ADD PRIMARY KEY (`codval`),
+  ADD KEY `fk_domxval` (`iddom`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `dominio`
+--
+ALTER TABLE `dominio`
+  MODIFY `iddom` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `pefid` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `iduser` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de la tabla `valor`
+--
+ALTER TABLE `valor`
+  MODIFY `codval` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `comentario`
---
-ALTER TABLE `comentario`
-  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`idusu`) REFERENCES `usuario` (`idusu`),
-  ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`idinc`) REFERENCES `incidente` (`idinc`);
-
---
--- Filtros para la tabla `incidente`
---
-ALTER TABLE `incidente`
-  ADD CONSTRAINT `incidente_ibfk_1` FOREIGN KEY (`idusu`) REFERENCES `usuario` (`idusu`),
-  ADD CONSTRAINT `incidente_ibfk_3` FOREIGN KEY (`codubi`) REFERENCES `ubicacion` (`codubi`),
-  ADD CONSTRAINT `incidente_ibfk_4` FOREIGN KEY (`tipo`) REFERENCES `valor` (`codval`),
-  ADD CONSTRAINT `incidente_ibfk_5` FOREIGN KEY (`estado`) REFERENCES `valor` (`codval`);
 
 --
 -- Filtros para la tabla `pagper`
@@ -1707,9 +1610,8 @@ ALTER TABLE `pagper`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fpef` FOREIGN KEY (`pefid`) REFERENCES `perfil` (`pefid`),
-  ADD CONSTRAINT `fubi` FOREIGN KEY (`codubi`) REFERENCES `ubicacion` (`codubi`),
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`sexo`) REFERENCES `valor` (`codval`);
+  ADD CONSTRAINT `fpef` FOREIGN KEY (`idprofile`) REFERENCES `perfil` (`pefid`),
+  ADD CONSTRAINT `fubi` FOREIGN KEY (`codubi`) REFERENCES `ubicacion` (`codubi`);
 
 --
 -- Filtros para la tabla `valor`
