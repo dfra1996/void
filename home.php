@@ -9,21 +9,24 @@
 	<header>
 		<?php 
 			$pg = isset($_REQUEST["pg"]) ? $_REQUEST["pg"]:NULL;
-			$pefid = isset($_SESSION["pefid"]) ? $_SESSION["pefid"]:NULL;
+			$idprofile = isset($_SESSION["idprofile"]) ? $_SESSION["idprofile"]:NULL;
+			if(!$idprofile){
+				echo "id de perfil vacio";
+			}
 			include ("view/cabe.php");
 		?>			
 	</header>
 	<!-- Section Menu Interno -->
 	<section>
 		<?php
-			$pefid = isset($_SESSION["pefid"]) ? $_SESSION["pefid"]:NULL;
+			$idprofile = isset($_SESSION["idprofile"]) ? $_SESSION["idprofile"]:NULL;
 			include("view/vmen.php");
 		?>		
 	</section>
 
 	<!-- Contenido -->
 	<section><?php 
-		moscon($pefid,$pg);
+		moscon($idprofile,$pg);
 	?></section>
 	<footer>
 		<?php include ("view/pie.php"); ?>

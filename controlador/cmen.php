@@ -2,21 +2,21 @@
 require_once('model/conexion.php');
 require_once('model/mmen.php');
 
-function mosmen($pagmen, $pefid){
+function mosmen($pagmen, $pefid){	
 	$mmen = new mmen();
 	$result = $mmen->selmen($pagmen, $pefid);
 	$pm = strtolower($pagmen);
 	$iduser = isset($_SESSION["iduser"]) ? $_SESSION["iduser"]:NULL;
-
 	// Llamado Datos Usuario
 	$dt = $mmen->selus($iduser);
-
+	/*if(!$pefid){
+		echo "id de perfil vacio";
+	}*/
 	// Validar que trae la variable
 	//var_dump ($dt[0]['imgus']);
 
 	// Asignar 0 a valor Null para que no salgan errores
 	//if($dt[0]['imgus']==NULL) $dt[0]['imgus'] = 0;
-
 	$txt = '';
 	if($result){
 		$txt .= '<div class="container">';
