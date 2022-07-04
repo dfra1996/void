@@ -18,7 +18,46 @@ function mosmen($pagmen, $pefid){
 	// Asignar 0 a valor Null para que no salgan errores
 	//if($dt[0]['imgus']==NULL) $dt[0]['imgus'] = 0;
 	$txt = '';
+	
 	if($result){
+		$txt .='<div class="wrapper">';
+			/* TODO SIDE BAR LEFT INI*/
+			$txt .='<div class="leftside-menu">';
+				/*TODO LOGO*/
+				$txt .='<a href="home.php" class="logo text-center logo-light">';
+					$txt .='<span class="logo-lg">';
+						$txt .='<img src="assets/images/logo.png" alt="" height="16">';
+					$txt .='</span>';
+					$txt .='<span class="logo-sm">';
+						$txt .='<img src="assets/images/logo_sm.png" alt="" height="16">';
+					$txt .='</span>';
+				$txt .='</a>';
+				/*TODO LOGO FIN*/
+				$txt .='<div class="h-100" id="leftside-menu-container" data-simplebar="">';
+		
+					$txt .='<ul class="side-nav">';
+						foreach ($result as $f) {
+							if($f['pagarc']=="#Espacio"){
+								$txt .='<li class="side-nav-title side-nav-item">'.$f['pagnom'].'</li>';
+							}else{							
+								$txt .='<li class="side-nav-item">';
+									$txt .='<a data-bs-toggle="collapse" href="'.$pm.'.php?pg='.$f['pagid'].'" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">';
+										$txt .='<i class="'.$f['icono'].'"></i>';
+										#uil-home-alt
+										$txt .='<span>'.$f["pagnom"].'</span>';
+									$txt .='</a>';
+								$txt .='</li>';
+							}
+						}
+								                     
+							
+						$txt .='</ul>';
+						
+				$txt .='</div>';
+			$txt .='</div>';
+			/* TODO SIDE BAR LEFT END*/
+		$txt .='</div>';
+		
 		$txt .= '<div class="container">';
 			$txt .= '<ul id="gn-menu" class="gn-menu-main">';
 				$txt .= '<li class="gn-trigger">';
@@ -28,9 +67,9 @@ function mosmen($pagmen, $pefid){
 					$txt .= '<ul class="gn-menu">';
 
 					// Foto Menu
-					$txt .= '<li>';
+					/*$txt .= '<li>';
 						$txt .= '<img src="'.$dt[0]['imgus'].'" class="img-pef" alt="No se encuentra la imagen">';
-					$txt .= '</li>';
+					$txt .= '</li>';*/
 
 						foreach ($result as $f) {
 							$txt .= '<li ';
