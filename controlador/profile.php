@@ -34,7 +34,7 @@ if($opera=="insert"){
 
 
 function update($pg, $arc){
-    $txt = "";
+    $txt = "";    
     $txt .= '<form name="frm1" action="'.$arc.'?pg='.$pg.'" method="POST">';
         $txt .= "<input type='text' name='pefnom' placeholder='Nombre de perfil'>";
         $txt .= "<input type='text' name='pagprin' placeholder='Pagina de inicio'>";
@@ -48,13 +48,15 @@ function update($pg, $arc){
 function read(){
     $Profile = new Profile();
 	$result = $Profile->list();
-    $txt = "";
-    if($result){
-        foreach ($result as $dt) {
-            $txt .= $dt['pefnom'];
-        }  
-    echo $txt;      
-    }
+    $txt = '';
+    $txt = '<div class="container-fluid">';
+        if($result){
+            foreach ($result as $dt) {
+                $txt .= $dt['pefnom'];
+            }  
+        echo $txt;      
+        }
+    $txt = '</div>';
 
 }
 

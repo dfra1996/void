@@ -39,20 +39,57 @@ function mosmen($pagmen, $pefid){
 						foreach ($result as $f) {
 							if($f['pagarc']=="#Espacio"){
 								$txt .='<li class="side-nav-title side-nav-item">'.$f['pagnom'].'</li>';
-							}else{							
+							}else{								
 								$txt .='<li class="side-nav-item">';
-									$txt .='<a data-bs-toggle="collapse" href="'.$pm.'.php?pg='.$f['pagid'].'" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">';
+									$txt .='<a href="'.$pm.'.php?pg='.$f['pagid'].'" class="side-nav-link">';
 										$txt .='<i class="'.$f['icono'].'"></i>';
-										#uil-home-alt
-										$txt .='<span>'.$f["pagnom"].'</span>';
+									$txt .='<span>'.$f["pagnom"].'</span>';
 									$txt .='</a>';
 								$txt .='</li>';
 							}
-						}
-								                     
-							
+						}							                     
 						$txt .='</ul>';
 						
+				$txt .='</div>';
+				$txt .='<div class="content-page">';
+					$txt .='<div class="content">';
+						$txt .='<div class="navbar-custom">';
+
+							$txt .= '<ul class="list-unstyled topbar-menu float-end mb-0">';         
+							$txt .= '<li class="dropdown notification-list">';
+								$txt .= '<a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">';
+									$txt .= '<span class="account-user-avatar">'; 
+										$txt .= '<img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">';
+									$txt .= '</span>';
+									$txt .= '<span>';
+										$txt .= '<span class="account-user-name">'.$_SESSION["name"].'</span>';
+										$txt .= '<span class="account-position">Founder</span>';
+									$txt .= '</span>';
+								$txt .= '</a>';
+								$txt .= '<div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">';
+
+									$txt .= '<div class=" dropdown-header noti-title">';
+										$txt .= '<h6 class="text-overflow m-0">Hola!</h6>';
+									$txt .= '</div>';
+
+									$txt .= '<a href="javascript:void(0);" class="dropdown-item notify-item">';
+									$txt .= '<i class="mdi mdi-account-circle me-1"></i>';
+										$txt .= '<span>My Account</span>';
+									$txt .= '</a>';
+
+									$txt .= '<a href="javascript:void(0);" class="dropdown-item notify-item">';
+										$txt .= '<i class="mdi mdi-account-edit me-1"></i>';
+										$txt .= '<span>Settings</span>';
+									$txt .= '</a>';
+								$txt .= '</div>';
+							$txt .= '</li>';
+							$txt .= '</ul>';
+							$txt .= '<button class="button-menu-mobile open-left">';
+								$txt .= '<i class="mdi mdi-menu"></i>';
+							$txt .= '</button>';
+				
+						$txt .='</div>';
+					$txt .='</div>';
 				$txt .='</div>';
 			$txt .='</div>';
 			/* TODO SIDE BAR LEFT END*/

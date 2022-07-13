@@ -39,9 +39,9 @@
 	</section>
 
 	<!-- Contenido -->
-	<section><?php 
+	<div class="container fluid"><?php 
 		moscon($idprofile,$pg);
-	?></section>
+	?></div>
 	<footer>
 		<?php include ("view/pie.php"); ?>
 	</footer>
