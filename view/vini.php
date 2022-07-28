@@ -1,6 +1,6 @@
 <?php require_once("controlador/cini.php"); ?>
 <!-- Form-login -->
-
+<div class="container-sm">
   <form name="frm1" action="model/control.php" method="POST">
     <?php errorauth();?>
     <input type="email" name="usu" placeholder="Correo electronico" class="form-control">
