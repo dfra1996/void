@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2022 a las 23:29:36
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 29-07-2022 a las 19:10:29
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,11 +25,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `comdel` (`idco` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `comdel` (`idco` BIGINT(11))   BEGIN
 		DELETE FROM comentario WHERE idcom=idco;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `comiu` (`idco` BIGINT(11), `idus` BIGINT(11), `idin` BIGINT(11), `desco` TEXT, `fecco` DATETIME)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `comiu` (`idco` BIGINT(11), `idus` BIGINT(11), `idin` BIGINT(11), `desco` TEXT, `fecco` DATETIME)   BEGIN
 		IF NOT EXISTS(SELECT idcom FROM comentario WHERE idcom=idco) THEN
 			INSERT INTO comentario(idcom, idusu, idinc, descom, feccom) 
 			VALUES (idco, idus, idin, desco, fecco);
@@ -40,12 +40,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `comiu` (`idco` BIGINT(11), `idus` B
 		END IF;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `domdel` (`iddo` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `domdel` (`iddo` BIGINT(11))   BEGIN
 		DELETE FROM dominio 
 		WHERE iddom=iddo;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `domiu` (IN `iddo` BIGINT(11), IN `nomdo` VARCHAR(70), IN `pardo` VARCHAR(50))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `domiu` (IN `iddo` BIGINT(11), IN `nomdo` VARCHAR(70), IN `pardo` VARCHAR(50))   BEGIN
 		IF NOT EXISTS (SELECT iddom FROM dominio WHERE iddom=iddo) THEN
 			INSERT INTO dominio(iddom,nomdom, pardom) 
 			VALUES (iddo, nomdo, pardo);
@@ -56,11 +56,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `domiu` (IN `iddo` BIGINT(11), IN `n
 		END IF;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `incdel` (IN `idin` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `incdel` (IN `idin` BIGINT(11))   BEGIN
         DELETE FROM incidente WHERE idinc=idin;
         END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `inciu` (`idin` BIGINT(11), `idus` BIGINT(11), `feccr` DATETIME, `codub` BIGINT(11), `textin` TEXT, `imgin` VARCHAR(100), `tip` INT(5), `fechecre` DATETIME, `estad` INT(5), `la` FLOAT(10,6), `ln` FLOAT(10,6))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inciu` (`idin` BIGINT(11), `idus` BIGINT(11), `feccr` DATETIME, `codub` BIGINT(11), `textin` TEXT, `imgin` VARCHAR(100), `tip` INT(5), `fechecre` DATETIME, `estad` INT(5), `la` FLOAT(10,6), `ln` FLOAT(10,6))   BEGIN
         IF NOT EXISTS(SELECT idinc FROM incidente WHERE idinc=idin)
         THEN
                 INSERT INTO incidente (idinc, idusu, feccre, codubi, textinc, imginc, tipo, fechecrep, estado, lat, lng)
@@ -72,11 +72,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `inciu` (`idin` BIGINT(11), `idus` B
         END IF;
         END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pagdel` (`pagi` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pagdel` (`pagi` BIGINT(11))   BEGIN
 		DELETE FROM pagina WHERE pagid=pagi;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pagiu` (IN `pagi` BIGINT(11), IN `pagno` VARCHAR(40), IN `pagar` VARCHAR(100), IN `pagmo` INT(3), IN `pagor` INT(3), IN `pagme` VARCHAR(30), IN `icon` VARCHAR(255))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pagiu` (IN `pagi` BIGINT(11), IN `pagno` VARCHAR(40), IN `pagar` VARCHAR(100), IN `pagmo` INT(3), IN `pagor` INT(3), IN `pagme` VARCHAR(30), IN `icon` VARCHAR(255))   BEGIN
 		IF NOT EXISTS(SELECT pagid FROM pagina WHERE pagid=pagi) THEN
 			INSERT INTO pagina(pagid,pagnom,pagarc,pagmos,pagord,pagmen,icono) VALUES
 			(pagi,pagno,pagar,pagmo,pagor,pagme,icon);
@@ -89,12 +89,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pagiu` (IN `pagi` BIGINT(11), IN `p
 	
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pefdel` (`pefi` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pefdel` (`pefi` BIGINT(11))   BEGIN
 		DELETE FROM perfil 
 		WHERE pefid=pefi;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pefiu` (IN `pefi` BIGINT(11), IN `pefno` VARCHAR(50), IN `pagpri` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pefiu` (IN `pefi` BIGINT(11), IN `pefno` VARCHAR(50), IN `pagpri` BIGINT(11))   BEGIN
 		IF NOT EXISTS (SELECT pefid FROM perfil WHERE pefid=pefi) THEN
 			INSERT INTO perfil(pefid, pefnom, pagprin) VALUES (pefi, pefno, pagpri);
 		ELSE
@@ -102,11 +102,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pefiu` (IN `pefi` BIGINT(11), IN `p
 		END IF;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ubidel` (`codub` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ubidel` (`codub` BIGINT(11))   BEGIN
 		DELETE FROM ubicacion WHERE codubi=codub;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ubiiu` (`codub` BIGINT(11), `nomub` VARCHAR(30), `depub` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ubiiu` (`codub` BIGINT(11), `nomub` VARCHAR(30), `depub` BIGINT(11))   BEGIN
 		IF NOT EXISTS(SELECT codubi FROM ubicacion WHERE codubi=codub) THEN
 			INSERT INTO ubicacion(codubi, nomubi, depubi) 
 			VALUES (codub, nomub, depub);
@@ -117,11 +117,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ubiiu` (`codub` BIGINT(11), `nomub`
 		END IF;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usudel` (`idus` BIGINT(11))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usudel` (`idus` BIGINT(11))   BEGIN
 		DELETE FROM usuario WHERE idusu=idus;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuiu` (IN `idus` BIGINT(11), IN `nomus` VARCHAR(50), IN `apeus` VARCHAR(50), IN `pefi` BIGINT(11), IN `dirus` VARCHAR(100), IN `telus` VARCHAR(10), IN `codub` BIGINT(11), IN `emaus` VARCHAR(100), IN `pasus` VARCHAR(100), IN `sex` INT(5), IN `imgu` VARCHAR(120), IN `actus` TINYINT(1))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuiu` (IN `idus` BIGINT(11), IN `nomus` VARCHAR(50), IN `apeus` VARCHAR(50), IN `pefi` BIGINT(11), IN `dirus` VARCHAR(100), IN `telus` VARCHAR(10), IN `codub` BIGINT(11), IN `emaus` VARCHAR(100), IN `pasus` VARCHAR(100), IN `sex` INT(5), IN `imgu` VARCHAR(120), IN `actus` TINYINT(1))   BEGIN
 		IF NOT EXISTS(SELECT idusu FROM usuario WHERE idusu=idus) THEN
 			INSERT INTO usuario(idusu, nomusu, apeusu, pefid, dirusu, telusu, codubi, emausu, pasusu, sexo, imgus, actusu) 
 			VALUES (idus, nomus, apeus, pefi, dirus, telus, codub, emaus, pasus, sex, imgu, actus);
@@ -132,11 +132,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `usuiu` (IN `idus` BIGINT(11), IN `n
 		END IF;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `valdel` (`codva` INT(5))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `valdel` (`codva` INT(5))   BEGIN
 		DELETE FROM valor WHERE codval=codva;
 	END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `valiu` (IN `codva` INT(5), IN `iddo` BIGINT(11), IN `nomva` VARCHAR(60), IN `parva` VARCHAR(100))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `valiu` (IN `codva` INT(5), IN `iddo` BIGINT(11), IN `nomva` VARCHAR(60), IN `parva` VARCHAR(100))   BEGIN
               IF NOT EXISTS(SELECT codval FROM valor WHERE codval=codva) THEN
                   INSERT INTO valor(codval,iddom, nomval, parval) VALUES
                   (codva, iddo, nomva, parva);
@@ -191,22 +191,23 @@ CREATE TABLE `pagina` (
 --
 
 INSERT INTO `pagina` (`pagid`, `pagnom`, `pagarc`, `pagmos`, `pagord`, `pagmen`, `icono`) VALUES
-(302, 'PÃ¡gina', 'view/vpag.php', 1, 14, 'Home', 'fas fa-copy ico'),
-(303, 'Perfil', 'vista/vpef.php', 1, 13, 'Home', 'fas fa-users ico'),
-(304, 'ConfiguraciÃ³n', 'vista/vcon.php', 2, 11, 'Home', 'fas fa-cog ico'),
-(305, 'Usuarios', 'vista/vusu.php', 1, 12, 'Home', 'fas fa-user ico'),
-(306, 'Comentarios', 'vista/vcom.php', 1, 3, 'Home', 'fas fa-comments ico'),
-(307, 'Incidentes', 'vista/vinc.php', 1, 2, 'Home', 'fas fa-mail-bulk ico'),
-(308, 'Valor', 'vista/vval.php', 1, 16, 'Home', 'fas fa-thermometer-empty ico'),
-(309, 'Dominio', 'view/vdom.php', 1, 15, 'Home', 'fas fa-thermometer-full ico'),
-(310, 'UbicaciÃ³n', 'vista/vubi.php', 1, 17, 'Home', 'fas fa-map-marker-alt ico'),
-(314, 'Datos Personales', 'vista/vdusu.php', 1, 4, 'Home', 'fas fa-user-cog ico'),
-(315, 'Estadisticas', 'vista/vest.php', 1, 7, 'Home', 'fas fa-poll ico'),
-(316, 'Graficos', 'vista/vgraf.php', 1, 6, 'Home', 'fas fa-chart-pie ico'),
-(1067, 'INCIDENTES', '#Espacio', 1, 1, 'Home', 'far fa-poo ico'),
-(1068, 'CONFIGURACIÃ“N', '#Espacio', 1, 10, 'Home', 'far fa-poo ico'),
-(1069, NULL, '#Espacio', 1, 20, 'Home', 'far fa-poo ico'),
-(1070, 'SALIR', 'view/vsal.php', 1, 30, 'Home', 'fas fa-sign-out-alt ico');
+(302, 'PÃ¡gina', 'view/vpag.php', 1, 14, 'Home', 'uil-home-alt'),
+(303, 'Perfil', 'vista/vpef.php', 1, 13, 'Home', 'uil-home-alt'),
+(304, 'ConfiguraciÃ³n', 'vista/vcon.php', 2, 11, 'Home', 'uil-home-alt'),
+(305, 'Datos personales', 'vista/vusu.php', 1, 12, 'Home', 'uil-home-alt'),
+(306, 'Ventas', 'vista/vcom.php', 1, 4, 'Home', 'uil-home-alt'),
+(307, 'Inventario', 'vista/vinc.php', 1, 3, 'Home', 'uil-home-alt'),
+(308, 'Valor', 'vista/vval.php', 1, 16, 'Home', 'uil-home-alt'),
+(309, 'Dominio', 'view/vdom.php', 1, 15, 'Home', 'uil-home-alt'),
+(310, 'UbicaciÃ³n', 'vista/vubi.php', 1, 17, 'Home', 'uil-home-alt'),
+(314, 'Productos', 'vista/vdusu.php', 1, 5, 'Home', 'uil-home-alt'),
+(315, 'Estadisticas', 'vista/vest.php', 1, 7, 'Home', 'uil-home-alt'),
+(316, 'Graficos', 'vista/vgraf.php', 1, 6, 'Home', 'uil-home-alt'),
+(1001, 'Roles', 'view/vprofile.php', 1, 2, 'Home', 'uil-home-alt'),
+(1067, 'Servicios', '#Espacio', 1, 1, 'Home', 'uil-home-alt'),
+(1068, 'CONFIGURACIÃ“N', '#Espacio', 1, 21, 'Home', NULL),
+(1069, 'Otros', '#Espacio', 1, 20, 'Home', 'uil-home-alt'),
+(1070, 'SALIR', 'view/vsal.php', 1, 30, 'Home', 'uil-home-alt');
 
 -- --------------------------------------------------------
 
@@ -254,7 +255,8 @@ INSERT INTO `pagper` (`pagid`, `pefid`) VALUES
 (308, 1),
 (310, 1),
 (1069, 1),
-(1070, 1);
+(1070, 1),
+(1001, 1);
 
 -- --------------------------------------------------------
 
@@ -273,9 +275,11 @@ CREATE TABLE `perfil` (
 --
 
 INSERT INTO `perfil` (`pefid`, `pefnom`, `pagprin`) VALUES
-(1, 'Administrador', 313),
-(2, 'EnteSeg', 315),
-(3, 'Usuario', 313);
+(1, 'Administrador', 1001),
+(2, 'EnteSeg', 1001),
+(3, 'Usuario', 1001),
+(4, '23', 1001),
+(5, 'Vendedor', 1001);
 
 -- --------------------------------------------------------
 
@@ -1581,7 +1585,7 @@ ALTER TABLE `dominio`
 -- AUTO_INCREMENT de la tabla `perfil`
 --
 ALTER TABLE `perfil`
-  MODIFY `pefid` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pefid` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
